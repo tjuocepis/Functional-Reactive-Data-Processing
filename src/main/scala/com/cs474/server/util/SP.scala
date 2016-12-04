@@ -1,9 +1,9 @@
-package com.cs474.util
+package com.cs474.server.util
 
 /**
   * Utility tool to process strings
   */
-object StringProcessor {
+object SP {
 
   /**
     * Removes quotes from the ends of the string e.g. "string" = string
@@ -11,7 +11,7 @@ object StringProcessor {
     * @param s string to process
     * @return processed string
     */
-  def removeQuotes(s: String): String = {
+  def ridQuotes(s: String): String = {
     s.substring(1, s.length-1)
   }
 }

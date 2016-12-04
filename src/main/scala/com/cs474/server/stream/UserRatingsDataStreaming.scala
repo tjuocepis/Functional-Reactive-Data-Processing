@@ -1,14 +1,14 @@
-package com.cs474.stream
+package com.cs474.server.stream
 
 import java.io.File
 
 import akka.stream.{ClosedShape, FlowShape, UniformFanOutShape}
 import akka.stream.scaladsl.GraphDSL.Implicits._
 import akka.stream.scaladsl.{GraphDSL, RunnableGraph, Source, _}
-import com.cs474.actor.ActorSystemContainer
-import com.cs474.cases.{User, UserBookRating}
-import com.cs474.stream.flows.DataFlows
-import com.cs474.stream.sinks.UserRatingsDataSinks
+import com.cs474.server.actor.ActorSystemContainer
+import com.cs474.server.cases.{User, UserBookRating}
+import com.cs474.server.stream.flows.DataFlows
+import com.cs474.server.stream.sinks.UserRatingsDataSinks
 
 /**
   * Created by titusjuocepis on 12/2/16.
@@ -45,8 +45,8 @@ class UserRatingsDataStreaming(userRatingsData: File) {
         val fanOutShape: UniformFanOutShape[UserBookRating, UserBookRating] = builder.add(Broadcast[UserBookRating](2))
 
         // SINKS
-        val averageUserRatingsDataSink = builder.add(Sink.foreach(UserRatingsDataSinks.averageUsersRating)).in
-        val averageRatingPerUser = builder.add(Sink.foreach(UserRatingsDataSinks.averageRatingPerUser)).in
+        val averageUserRatingsDataSink = builder.add(Sink.foreach(UserRatingsDataSinks.printAllUsersDataAnalysis)).in
+        val averageRatingPerUser = builder.add(Sink.foreach(UserRatingsDataSinks.printSpecifUserDataAnalysis)).in
 
         // GRAPH STRUCTURE
 

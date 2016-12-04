@@ -4,13 +4,13 @@ import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, ClosedShape, FlowShape, Graph}
 import akka.stream.scaladsl.GraphDSL.Implicits._
 import akka.stream.scaladsl.{GraphDSL, RunnableGraph, Sink, Source}
-import com.cs474.cases.User
-import com.cs474.stream.flows.DataFlows
-import com.cs474.stream.sinks.UserDataSinks
+import com.cs474.server.cases.User
+import com.cs474.server.stream.flows.DataFlows
+import com.cs474.server.stream.sinks.UserDataSinks
 import akka.testkit
 import akka.testkit.TestKit
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
-import com.cs474.stream.flows.DataFlows
+import com.cs474.server.stream.flows.DataFlows
 import org.scalatest.enablers.KeyMapping
 import akka.stream.scaladsl._
 import akka.stream.{FlowShape, Graph, Materializer, UniformFanOutShape}

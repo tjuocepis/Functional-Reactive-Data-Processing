@@ -1,4 +1,4 @@
-package com.cs474.actor;
+package com.cs474.server.actor;
 
 import akka.actor.ActorSystem;
 import akka.stream.ActorMaterializer;
