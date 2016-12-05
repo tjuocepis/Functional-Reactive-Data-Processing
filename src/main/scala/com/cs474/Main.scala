@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.actor.{PoisonPill, Props}
 import akka.pattern.ask
 import com.cs474.server.actor.ActorSystemContainer
-import com.cs474.server.stream.{UserDataStreaming, UserRatingsDataStreaming}
+import com.cs474.server.stream.DataStream
 
 import scala.io.StdIn
 
@@ -30,9 +30,9 @@ object Main {
     val usersFile = new File("data/BX-Users.csv")
     val userRatingsFile = new File("data/BX-Book-Ratings.csv")
 
-    val userDataStreamer = new UserDataStreaming(usersFile, userRatingsFile) // class object to stream user data
+    val userDataStreamer = new DataStream(usersFile, userRatingsFile) // class object to stream user data
     userDataStreamer.analyzeUserData("2349")
-    userDataStreamer.analyzeCityLocationData("siauliai,n/a,lithuania")
+    userDataStreamer.analyzeCityLocationData("kiev,n/a,ukraine")
 
     //    val userRatingsDataStreaming = new UserRatingsDataStreaming(userRatingsFile)
     //    userRatingsDataStreaming.startStreaming()
