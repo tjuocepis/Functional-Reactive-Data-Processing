@@ -1,6 +1,11 @@
-# README #
+# Reactive Functional Program For Streaming And Analyzing User And Book Data #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Have to fix bugs when hitting user-data endpoint. If server response error then all concecutive user-data responses give two all user
+### responses instead of one for all and one for specific user. Must implement error handling when a user only contains ratings of 0
+### Something with the counter is messed up.
+
+### Must also write code to send the rated books sequence to the actors and back to the endpoint
+### Would also like to implement combining book ratings data with book information data such as title and etc.
 
 ### What is this repository for? ###
 
