@@ -1,6 +1,17 @@
+<<<<<<< HEAD
 ## Reactive Functional Program For Streaming And Analyzing User And Book Data ##
 
 ### What is the project about? ###
+=======
+# Reactive Functional Program For Streaming And Analyzing User And Book Data #
+
+### Have to fix bugs when hitting user-data endpoint. If server response error then all concecutive user-data responses give two all user
+### responses instead of one for all and one for specific user. Must implement error handling when a user only contains ratings of 0
+### Something with the counter is messed up.
+
+### Must also write code to send the rated books sequence to the actors and back to the endpoint
+### Would also like to implement combining book ratings data with book information data such as title and etc.
+>>>>>>> e52d9dd5fa5521adfd51564ad52f94e9e504aef7
 
 The project involves streaming and analyzing large data files:
 
