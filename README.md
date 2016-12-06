@@ -18,7 +18,7 @@ To interact with the server the user can do GET requests:
 
 * For book ratings data users can get analyzed data for all users in the data set or for a specified user
 * http://localhost:9999/ratings-data?user=2349
-* http://localhost:9999/ratings-data?user=2377
+* http://localhost:9999/ratings-data?user=2363
 * http://localhost:9999/ratings-data?user=276704
 * Analyzed data contains total number of ratings, average rating, number of data entries with a valid rating, and number
     of data entries with rating of 0 (Rating of 0 means that the user has not rated that book)
