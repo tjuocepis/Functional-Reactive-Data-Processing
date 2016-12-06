@@ -2,23 +2,21 @@ package com.cs474.server.stream
 
 import java.io.File
 
+import akka.actor.{ActorRef, Props}
 import akka.stream._
 import akka.stream.scaladsl.GraphDSL.Implicits._
 import akka.stream.scaladsl.{Flow, GraphDSL, RunnableGraph, Source, _}
 import com.cs474.server.cases.{User, UserBookRating}
 import com.cs474.server.stream.flows.{BookRatingsDataFlows, GenericDataFlows, UserDataFlows}
 import com.cs474.server.stream.sinks.{UserDataSinks, UserRatingsDataSinks}
-import com.cs474.server.actor.ActorSystemContainer
+import com.cs474.server.actor.{ActorSystemContainer, DataStreamSubscriber}
 
 /**
-  * Takes in data files to stream from and defines methods for streaming data from different sources
+  * Defines methods for streaming data and analyzing data from different sources
   *
   * Followed Akka Documentation from: http://doc.akka.io/docs/akka/2.4/scala/com.titus.stream/com.titus.stream-graphs.html
-  *
-  * @param usersFile User data file
-  * @param userRatingsData Book ratings data file
   */
-class DataStream(usersFile: File, userRatingsData: File) {
+class DataStream {
 
   implicit val system = ActorSystemContainer.getInstance().getSystem
   implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
@@ -28,9 +26,9 @@ class DataStream(usersFile: File, userRatingsData: File) {
     *
     * @param location Location to analyze data for
     */
-  def analyzeCityLocationData(location: String) = {
+  def analyzeLocationData(location: String, actorRef: ActorRef) = {
 
-    val usersDataLines = scala.io.Source.fromFile(usersFile, "ISO-8859-1").getLines().drop(1)
+    val usersDataLines = scala.io.Source.fromFile("data/BX-Users.csv", "ISO-8859-1").getLines().drop(1)
 
     val graph = RunnableGraph.fromGraph(GraphDSL.create() {
       implicit builder =>
@@ -55,8 +53,9 @@ class DataStream(usersFile: File, userRatingsData: File) {
         val usersFanOutShape: UniformFanOutShape[User, User] = builder.add(Broadcast[User](2))
 
         // SINKS
-        val averageUserAgeSink = builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForAllLocations)).in
-        val averageUserAgeForLocationSink = builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForSpecifcLocation)).in
+        val averageUserAgeSink = builder.add(Sink.actorSubscriber(Props(new DataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForAllLocations)).in
+        val averageUserAgeForLocationSink = builder.add(Sink.actorSubscriber(Props(new DataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForSpecifcLocation)).in
+
 
         // GRAPH STRUCTURE
         usersSource ~> stringToUserFlowShape ~> usersFanOutShape
@@ -74,9 +73,9 @@ class DataStream(usersFile: File, userRatingsData: File) {
     *
     * @param user User to analyze data for
     */
-  def analyzeUserData(user: String) = {
+  def analyzeUserData(user: String, actorRef: ActorRef) = {
 
-    val userRatingsDataLines = scala.io.Source.fromFile(userRatingsData, "ISO-8859-1").getLines().drop(1)
+    val userRatingsDataLines = scala.io.Source.fromFile("data/BX-Book-Ratings.csv", "ISO-8859-1").getLines().drop(1)
 
     val graph = RunnableGraph.fromGraph(GraphDSL.create() {
       implicit builder =>
@@ -105,7 +104,7 @@ class DataStream(usersFile: File, userRatingsData: File) {
         val filteredUsersFanOutShape: UniformFanOutShape[UserBookRating, UserBookRating] = builder.add(Broadcast[UserBookRating](2))
 
         // SINKS
-        val averageUserRatingsDataSink = builder.add(Sink.foreach(UserRatingsDataSinks.printAllUsersDataAnalysis)).in
+        val averageUserRatingsDataSink = builder.add(Sink.actorSubscriber(Props(new DataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserRatingsDataSinks.printAllUsersDataAnalysis)).in
         val averageRatingForUserSink = builder.add(Sink.foreach(UserRatingsDataSinks.printSpecifUserDataAnalysis)).in
         val printSpecifcUserRatedBooksSink = builder.add(Sink.foreach(UserRatingsDataSinks.printSpecificUserRatedBooks)).in
 

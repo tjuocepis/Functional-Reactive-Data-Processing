@@ -123,7 +123,7 @@ object GenericDataFlows {
       val attrSplit = attr.split(",").map(_.trim())
       attrSplit match {
         case Array(city,"n/a",country) => // If filtering by city and country only
-          user.location.isStatelessCity(city, country) // Check for matche by calling specific method if no state provided
+          user.location.isStatelessCity(city, country) // Check for match by calling specific method if no state provided
         case Array("n/a","n/a",country) => // If filtering by country only
           user.location.isCountry(country) // Check for matche by calling specific method if only contry is provided
         case Array("n/a",state,country) => // If filtering by state and country

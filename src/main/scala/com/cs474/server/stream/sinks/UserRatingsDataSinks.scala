@@ -7,7 +7,7 @@ import com.cs474.server.cases.UserBookRating
 import scala.util.Try
 
 /**
-  * Created by titusjuocepis on 12/2/16.
+  * Instance that defines methods for printing user ratings data
   */
 object UserRatingsDataSinks {
 
@@ -35,8 +35,8 @@ object UserRatingsDataSinks {
   /**
     * Prints out the processed results of average rating per specific user id that comes from the stream
     *
-    * @param source processed stream of results
-    * @tparam usersSource processed stream of results
+    * @param source Processed stream of results
+    * @tparam usersSource Processed stream of results
     */
   def printSpecifUserDataAnalysis[usersSource](source: usersSource) {
     var analysis = s"===========================================================\n"
@@ -57,6 +57,12 @@ object UserRatingsDataSinks {
     }
   }
 
+  /**
+    * Prints out a specific user's rated books
+    *
+    * @param source Processed stream of results
+    * @tparam usersSource Processed stream of results
+    */
   def printSpecificUserRatedBooks[usersSource](source: usersSource) = {
     source match {
       case list: Seq[UserBookRating] =>
