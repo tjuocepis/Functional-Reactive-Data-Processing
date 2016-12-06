@@ -1,7 +1,6 @@
 package com.cs474.server.stream.sinks
 
 import java.text.DecimalFormat
-
 import scala.util.Try
 
 /**

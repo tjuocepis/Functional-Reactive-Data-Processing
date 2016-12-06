@@ -5,11 +5,11 @@ import java.io.File
 import akka.actor.{ActorRef, Props}
 import akka.stream._
 import akka.stream.scaladsl.GraphDSL.Implicits._
-import akka.stream.scaladsl.{Flow, GraphDSL, RunnableGraph, Source, _}
+import akka.stream.scaladsl.{GraphDSL, RunnableGraph, Source, _}
 import com.cs474.server.cases.{User, UserBookRating}
 import com.cs474.server.stream.flows.{BookRatingsDataFlows, GenericDataFlows, UserDataFlows}
 import com.cs474.server.stream.sinks.{UserDataSinks, UserRatingsDataSinks}
-import com.cs474.server.actor.{ActorSystemContainer, DataStreamSubscriber}
+import com.cs474.server.actor.{ActorSystemContainer, LocationDataStreamSubscriber, RatedBooksSubscriber, UserRatingsDataStreamSubscriber}
 
 /**
   * Defines methods for streaming data and analyzing data from different sources
@@ -53,8 +53,8 @@ class DataStream {
         val usersFanOutShape: UniformFanOutShape[User, User] = builder.add(Broadcast[User](2))
 
         // SINKS
-        val averageUserAgeSink = builder.add(Sink.actorSubscriber(Props(new DataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForAllLocations)).in
-        val averageUserAgeForLocationSink = builder.add(Sink.actorSubscriber(Props(new DataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForSpecifcLocation)).in
+        val averageUserAgeSink = builder.add(Sink.actorSubscriber(Props(new LocationDataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForAllLocations)).in
+        val averageUserAgeForLocationSink = builder.add(Sink.actorSubscriber(Props(new LocationDataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserDataSinks.printAvgUserAgeForSpecifcLocation)).in
 
 
         // GRAPH STRUCTURE
@@ -104,16 +104,16 @@ class DataStream {
         val filteredUsersFanOutShape: UniformFanOutShape[UserBookRating, UserBookRating] = builder.add(Broadcast[UserBookRating](2))
 
         // SINKS
-        val averageUserRatingsDataSink = builder.add(Sink.actorSubscriber(Props(new DataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserRatingsDataSinks.printAllUsersDataAnalysis)).in
-        val averageRatingForUserSink = builder.add(Sink.foreach(UserRatingsDataSinks.printSpecifUserDataAnalysis)).in
-        val printSpecifcUserRatedBooksSink = builder.add(Sink.foreach(UserRatingsDataSinks.printSpecificUserRatedBooks)).in
+        val averageUserRatingsDataSink = builder.add(Sink.actorSubscriber(Props(new UserRatingsDataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserRatingsDataSinks.printAllUsersDataAnalysis)).in
+        val averageRatingForUserSink = builder.add(Sink.actorSubscriber(Props(new UserRatingsDataStreamSubscriber(actorRef))))//builder.add(Sink.foreach(UserRatingsDataSinks.printSpecifUserDataAnalysis)).in
+        val specifcUserRatedBooksSink = builder.add(Sink.actorSubscriber(Props(new RatedBooksSubscriber(actorRef))))//builder.add(Sink.foreach(UserRatingsDataSinks.printSpecificUserRatedBooks)).in
 
         // GRAPH STRUCTURE (ratings)
         ratingsSource ~> stringToUserBookRatingFlowShape ~> ratingsFanOutShape
         ratingsFanOutShape ~> filterByUserIdFlowShape ~> filteredUsersFanOutShape
         ratingsFanOutShape ~> averageRatingFlowShape ~> averageUserRatingsDataSink
         filteredUsersFanOutShape ~> averageRatingPerAttributeFlowShape ~> averageRatingForUserSink
-        filteredUsersFanOutShape ~> userBookRatingsToSeqFlowShape ~> printSpecifcUserRatedBooksSink
+        filteredUsersFanOutShape ~> userBookRatingsToSeqFlowShape ~> specifcUserRatedBooksSink
 
         // CLOSE
         ClosedShape

@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>actor - documentation - com.cs474.server.actor</title>
+          <meta name="description" content="actor - documentation - com.cs474.server.actor" />
+          <meta name="keywords" content="actor documentation com.cs474.server.actor" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.cs474.server.actor.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.cs474">cs474</a>.<a href="../package.html" class="extype" name="com.cs474.server">server</a></p>
+        <h1>actor</h1>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">actor</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.cs474.server.actor.LocationDataStreamSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LocationDataStreamSubscriberextendsActorSubscriberwithActorLogging"></a>
+      <a id="LocationDataStreamSubscriber:LocationDataStreamSubscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="LocationDataStreamSubscriber.html"><span class="name">LocationDataStreamSubscriber</span></a><span class="result"> extends <span class="extype" name="akka.stream.actor.ActorSubscriber">ActorSubscriber</span> with <span class="extype" name="akka.actor.ActorLogging">ActorLogging</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">Actor Subscriber where analyzed location data sinks to.</p>
+    </li><li name="com.cs474.server.actor.RatedBooksSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RatedBooksSubscriberextendsActorSubscriberwithActorLogging"></a>
+      <a id="RatedBooksSubscriber:RatedBooksSubscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="RatedBooksSubscriber.html"><span class="name">RatedBooksSubscriber</span></a><span class="result"> extends <span class="extype" name="akka.stream.actor.ActorSubscriber">ActorSubscriber</span> with <span class="extype" name="akka.actor.ActorLogging">ActorLogging</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">Actor Subscriber where book data sinks to.</p>
+    </li><li name="com.cs474.server.actor.ResponseActor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ResponseActorextendsActorwithActorLogging"></a>
+      <a id="ResponseActor:ResponseActor"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ResponseActor.html"><span class="name">ResponseActor</span></a><span class="result"> extends <span class="extype" name="akka.actor.Actor">Actor</span> with <span class="extype" name="akka.actor.ActorLogging">ActorLogging</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">Receives messages from Actor created in Main and Actor Subscribers and sends results back to Actor in Main
+</p>
+    </li><li name="com.cs474.server.actor.UserRatingsDataStreamSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="UserRatingsDataStreamSubscriberextendsActorSubscriberwithActorLogging"></a>
+      <a id="UserRatingsDataStreamSubscriber:UserRatingsDataStreamSubscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="UserRatingsDataStreamSubscriber.html"><span class="name">UserRatingsDataStreamSubscriber</span></a><span class="result"> extends <span class="extype" name="akka.stream.actor.ActorSubscriber">ActorSubscriber</span> with <span class="extype" name="akka.actor.ActorLogging">ActorLogging</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">Actor Subscriber where analyzed user ratings data sinks to.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.cs474.server.actor.ResponseActorContainer" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ResponseActorContainer"></a>
+      <a id="ResponseActorContainer:ResponseActorContainer"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ResponseActorContainer$.html"><span class="name">ResponseActorContainer</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">Singleton instance that holds the ResponseActor
+</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+      <script defer="defer" type="text/javascript" id="jquery-js" src="../../../../lib/jquery.js"></script><script defer="defer" type="text/javascript" id="jquery-ui-js" src="../../../../lib/jquery-ui.js"></script><script defer="defer" type="text/javascript" id="tools-tooltip-js" src="../../../../lib/tools.tooltip.js"></script><script defer="defer" type="text/javascript" id="template-js" src="../../../../lib/template.js"></script>
+    </body>
+      </html>

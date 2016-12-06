@@ -1,29 +1,53 @@
-# README #
+## Reactive Functional Program For Streaming And Analyzing User And Book Data ##
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### What is the project about? ###
 
-### What is this repository for? ###
+The project involves streaming and analyzing large data files:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* BX-Users.csv : Contains data about users with user ID, location and age information
+* BX-Book-Ratings.csv : Contains data about user bok ratings with user ID, book ISBN and rating information
+* BX-Users-TEST.csv : Contains 5 data entries used for testing
+* BX-Book-Ratings-TEST.csv : Contains 5 data entries used for testing
+
+The program acts as a server containing two endpoints:
+
+* http://localhost:9999/ratings-data
+* http://localhost:9999/location-data
+
+To interact with the server the user can do GET requests:
+
+* For book ratings data users can get analyzed data for all users in the data set or for a specified user
+* http://localhost:9999/ratings-data?user=2349
+* http://localhost:9999/ratings-data?user=2377
+* http://localhost:9999/ratings-data?user=276704
+* Analyzed data contains total number of ratings, average rating, number of data entries with a valid rating, and number
+    of data entries with rating of 0 (Rating of 0 means that the user has not rated that book)
+
+* For location data users can get analyzed data for all locations in the data set, for a specific city, for a specific
+    state, or for a specific country
+* http://localhost:9999/location-data?city=n/a&state=n/a&country=ukraine
+* http://localhost:9999/location-data?city=kiev&state=n/a&country=ukraine
+* http://localhost:9999/location-data?city=n/a&state=illinois&country=usa
+* http://localhost:9999/location-data?city=n/a&state=california&country=usa
+* http://localhost:9999/location-data?city=chicago&state=illinois&country=usa
+* http://localhost:9999/location-data?city=san+francisco&state=california&country=usa
+* Analyzed data contains total number of readers, average reader's age, number of users with their age provided and
+    number of users that did not provide their age
+
+The project is written in Scala and the reactive asynchronous streaming is done using Akka. The project also includes
+multiple tests to test each component of the stream separately to ensure it's correctness
 
 ### How do I get set up? ###
+* To get the program running, clone the repository and from the terminal call sbt run in the root directory of
+    the project
+* To run the tests call sbt test
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Limitations ###
 
-### Contribution guidelines ###
+* If user makes a mistake when providing the user ID or location the server times out
+* If no data exists for the provided user ID or location the server times out
+* Analyzed data is sent straight back to the client without storage or cache
 
-* Writing tests
-* Code review
-* Other guidelines
+### Documention ###
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+To access documentation, open index.html in the documentation folder

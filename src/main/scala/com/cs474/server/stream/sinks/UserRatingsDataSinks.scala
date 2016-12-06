@@ -1,9 +1,7 @@
 package com.cs474.server.stream.sinks
 
 import java.text.DecimalFormat
-
 import com.cs474.server.cases.UserBookRating
-
 import scala.util.Try
 
 /**

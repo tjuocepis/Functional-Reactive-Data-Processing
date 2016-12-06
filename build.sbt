@@ -1,4 +1,4 @@
-name := "edgaras_juocepis_cs441_final"
+name := "edgaras_juocepis_cs474_final"
 
 version := "1.0"
 

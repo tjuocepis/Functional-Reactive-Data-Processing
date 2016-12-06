@@ -1,23 +1,18 @@
 package com.cs474.server.actor
 
 import java.text.DecimalFormat
-
-import akka.actor.Actor.Receive
-import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.stream.actor.ActorSubscriberMessage.OnNext
-import akka.stream.actor.{ActorSubscriber, RequestStrategy, WatermarkRequestStrategy}
-import akka.stream.scaladsl.Sink
-import com.cs474.server.cases.{LocationAnalysis, StartLocationAnalysis, StartUserAnalysis}
-import com.cs474.server.stream.DataStream
-
+import akka.stream.actor.{ActorSubscriber, WatermarkRequestStrategy}
+import com.cs474.server.cases.LocationAnalysis
 import scala.util.Try
 
 /**
-  * Actor Subscriber where analyzed data sinks to.  The analyzed data gets sent to the ResponseActor
+  * Actor Subscriber where analyzed location data sinks to.  The analyzed data gets sent to the ResponseActor
   *
   * @param actorRef The original sender that waits for a response to be sent to it
   */
-class DataStreamSubscriber(actorRef: ActorRef) extends ActorSubscriber with ActorLogging {
+class LocationDataStreamSubscriber(actorRef: ActorRef) extends ActorSubscriber with ActorLogging {
 
   val system = ActorSystemContainer.getInstance().getSystem
   val df = new DecimalFormat("#") // Formats Double values
@@ -25,7 +20,7 @@ class DataStreamSubscriber(actorRef: ActorRef) extends ActorSubscriber with Acto
   override def receive: Receive = {
 
     /**
-      * When user data analysis is received
+      * When all locations data analysis is received
       */
     case OnNext((usersWithAgeCount: Int, ageSum: Double, totalUsersCount: Int)) =>
       val response = s"\n===========================================================\n" +
@@ -39,7 +34,7 @@ class DataStreamSubscriber(actorRef: ActorRef) extends ActorSubscriber with Acto
         ResponseActorContainer.instance() ! LocationAnalysis(response, actorRef)
 
     /**
-      * When data analysis is received for specific location
+      * When location analysis is received for specific location
       */
     case OnNext((location: String, usersWithAgeCount: Int, ageSum: Double, totalUsersCount: Int)) =>
       val response = s"\n===========================================================\n" +

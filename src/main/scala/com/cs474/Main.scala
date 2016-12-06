@@ -5,7 +5,6 @@ import java.io.File
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import akka.actor.{PoisonPill, Props}
 import akka.pattern.ask
 import akka.util.Timeout
 import com.cs474.server.actor.{ActorSystemContainer, ResponseActorContainer}
@@ -39,7 +38,7 @@ object Main {
     //userDataStreamer.analyzeLocationData("kiev,n/a,ukraine")
 
     def route: Route = {
-      (path("user-data") & get) {
+      (path("ratings-data") & get) {
         parameter("user" ? "2349") { (user) =>
 
           onSuccess(ask(ResponseActorContainer.instance(), StartUserAnalysis(user)).mapTo[AnalysisResponse]) {
@@ -49,15 +48,14 @@ object Main {
         }
       } ~
       (path("location-data") & get) {
-      parameter("city" ? "vilnius", "state" ? "n/a", "country" ? "lithuania") { (city: String,state: String,country: String) =>
+        parameter("city" ? "vilnius", "state" ? "n/a", "country" ? "lithuania") { (city: String,state: String,country: String) =>
 
-        println(s"$city $state $country")
-        val location = city+","+state+","+country
-        onSuccess(ask(ResponseActorContainer.instance(), StartLocationAnalysis(location)).mapTo[AnalysisResponse]) {
-          case AnalysisResponse(analysis) =>
-            complete(analysis)
+          val location = city+","+state+","+country
+          onSuccess(ask(ResponseActorContainer.instance(), StartLocationAnalysis(location)).mapTo[AnalysisResponse]) {
+            case AnalysisResponse(analysis) =>
+              complete(analysis)
+          }
         }
-      }
       }
     }
 

@@ -1,11 +1,9 @@
 package com.cs474.server.stream.flows
 
-import akka.actor.ActorSystem
 import akka.stream.{ActorAttributes, Supervision}
 import akka.stream.scaladsl.Flow
 import com.cs474.server.actor.ActorSystemContainer
 import com.cs474.server.cases.{Location, User, UserBookRating}
-import com.cs474.server.util.SP
 
 import scala.util.Try
 
@@ -66,10 +64,10 @@ object GenericDataFlows {
     .groupBy(10000, {
       case User(id, location, age) => // If working with User
         location match {
-          case Location(city,"n/a",country) => // If client wants to analyze by city and country (Some cities don't belong to a state)
-          case Location("n/a",state,country) => // If client wants to analyze by state and country
-          case Location("n/a", "n/a",country) => // If client wants to analyze by country only
-          case Location(city,state,country) => // If client wants to analyze by city, state, and country
+          case Location("n/a", "n/a",country) => // Group by country
+          case Location(city,"n/a",country) => // Group by city with country
+          case Location("n/a",state,country) => // Group by state with country
+          case Location(city,state,country) => // Groupt by city with state and country
         }
       case UserBookRating(userId, bookISBN, rating) => userId // If working with UserBookRating
     })
@@ -122,14 +120,32 @@ object GenericDataFlows {
     case user: User => // If working with User
       val attrSplit = attr.split(",").map(_.trim())
       attrSplit match {
-        case Array(city,"n/a",country) => // If filtering by city and country only
-          user.location.isStatelessCity(city, country) // Check for match by calling specific method if no state provided
-        case Array("n/a","n/a",country) => // If filtering by country only
-          user.location.isCountry(country) // Check for matche by calling specific method if only contry is provided
-        case Array("n/a",state,country) => // If filtering by state and country
-          user.location.isState(state,country) // Check for matche by calling specific method if only state and country is provided
         case Array(city,state,country) => // If filtering by city, state and country
-          user.location.isCity(city, state, country) // Check for match by calling specific method if all three are provided
+          city match {
+            case "n/a" =>
+              state match {
+                case "n/a" =>
+                  user.location.isCountry(country)
+                case _ =>
+                  country match {
+                    case _ =>
+                      user.location.isState(state, country)
+                  }
+              }
+            case _ =>
+              state match {
+                case "n/a" =>
+                  country match {
+                    case _ =>
+                      user.location.isStatelessCity(city, country)
+                  }
+                case _ =>
+                  country match {
+                    case _ =>
+                      user.location.isCity(city, state, country) // Check for match by calling specific method if all three are provided
+                  }
+              }
+          }
       }
     case bookRating: UserBookRating => // If working with UserBookRating
       bookRating.userId.contentEquals(attr) // Check if userId matches the attribute we want to filter by
