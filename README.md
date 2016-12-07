@@ -20,6 +20,7 @@ To interact with the server the user can do GET requests:
 * http://localhost:9999/ratings-data?user=2349
 * http://localhost:9999/ratings-data?user=2363
 * http://localhost:9999/ratings-data?user=276704
+* http://localhost:9999/ratings-data?user=276866
 * Analyzed data contains total number of ratings, average rating, number of data entries with a valid rating, and number
     of data entries with rating of 0 (Rating of 0 means that the user has not rated that book)
 
@@ -27,6 +28,8 @@ To interact with the server the user can do GET requests:
     state, or for a specific country
 * http://localhost:9999/location-data?city=n/a&state=n/a&country=ukraine
 * http://localhost:9999/location-data?city=kiev&state=n/a&country=ukraine
+* http://localhost:9999/location-data?city=n/a&state=n/a&country=lithuania
+* http://localhost:9999/location-data?city=vilnius&state=n/a&country=lithuania
 * http://localhost:9999/location-data?city=n/a&state=illinois&country=usa
 * http://localhost:9999/location-data?city=n/a&state=california&country=usa
 * http://localhost:9999/location-data?city=chicago&state=illinois&country=usa
