@@ -18,7 +18,7 @@ To interact with the server the user can do GET requests:
 
 * For book ratings data users can get analyzed data for all users in the data set or for a specified user
 * http://localhost:9999/ratings-data?user=2349
-* http://localhost:9999/ratings-data?user=2377
+* http://localhost:9999/ratings-data?user=2363
 * http://localhost:9999/ratings-data?user=276704
 * Analyzed data contains total number of ratings, average rating, number of data entries with a valid rating, and number
     of data entries with rating of 0 (Rating of 0 means that the user has not rated that book)
@@ -47,6 +47,10 @@ multiple tests to test each component of the stream separately to ensure it's co
 * If user makes a mistake when providing the user ID or location the server times out
 * If no data exists for the provided user ID or location the server times out
 * Analyzed data is sent straight back to the client without storage or cache
+* When displaying results for a specified location, if the user chooses to search just by country, when displaying the results the location name
+    contains the city and state, however the results are for that specified country which includes ALL the cities. Same for when searching just
+    by state with country.  In summary, the location name that is displayed contains the last data entry analyzed instead of the user's provided
+    location, however the analyzed results are correct for the user's provided location.
 
 ### Documention ###
 
