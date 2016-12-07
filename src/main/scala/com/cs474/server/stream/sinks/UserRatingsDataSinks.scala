@@ -23,10 +23,6 @@ object UserRatingsDataSinks {
                                    s"Number of data entries with rating being 0 (0 means not rated):" +
                                    s" ${totalRatingsCount-userRatingsCount}")
         println(analysis)
-
-      case bad => println(s"Bad case: $bad")
-
-      case _ => println("No data was found")
     }
   }
 
@@ -48,10 +44,6 @@ object UserRatingsDataSinks {
                                    s"Number of data entries with rating being 0 (0 means not rated):" +
                                    s" ${totalRatings-userRatingsCount}")
         println(analysis)
-
-      case bad => println(s"Bad case: $bad")
-
-      case _ => println(s"No data found for the user")
     }
   }
 
