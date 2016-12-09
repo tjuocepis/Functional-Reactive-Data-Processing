@@ -13,15 +13,6 @@ The project involves streaming and analyzing large data files:
 
 I chose to use GraphDSL to create my streaming pipeline, because the syntax is really nice and concise (especially ~> operators for connecting
 the pipeline together) and you can do branching of data that comes out of a Flow in order to apply different Flows on the same data.  For example
-in analyzeUserRatingsData once I convert the strings coming out of the source to UserBookRating case class instances, I branch those out, because
-I apply averageRatingFlow to one branch to calculate the averages of all the users and I apply filterByUserId to the second branch to filter out
-specific users.  I then branch out the filtered users, because I apply a Flow to one branch to calculate averages just for those users and to the
-second branch I apply a Flow that groups the rated books into a Sequence.  (The reason for Sequence is because Flow.grouped(int) returns a
-Sequence and is a nice data structure for book ratings since you can sort it and book ratings will go in sequence from best to worst). The same
-idea about GraphDSL applies to analyzeLocationData stream.
-
-I used case classes to represent instances that hold data of users, book ratings, books and location (location is nested inside user case class
-=======
 in analyzeUserRatingsData once I convert the strings coming out of the source to UserBookRating case class instances, I branch those out, because 
 I apply averageRatingFlow to one branch to calculate the averages of all the users and I apply filterByUserId to the second branch to filter out 
 specific users.  I then branch out the filtered users, because I apply a Flow to one branch to calculate averages just for those users and to the
