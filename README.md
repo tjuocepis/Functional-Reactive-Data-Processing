@@ -24,7 +24,7 @@ I used case classes to represent instances that hold data of users, book ratings
 which my data pipeline takes care of).  Other case classes are used for Actor messaging.
 
 I used one Actor which responds to client's inputs that come from hitting the endpoint.  ResponseActor starts a specific stream based on those
-inputs.  If client wants to look at analyzed book ratings, ResponseActor gets a message for that and strats that stream pipeline.  If client
+inputs.  If client wants to look at analyzed book ratings, ResponseActor gets a message for that and starts that stream pipeline.  If client
 wants to look at analyzed user data, ResponseActor gets a message for that and starts that stream pipeline.  When the pipeline is running and
 data goes through all the flows, the analyzed data Sinks to a specifc ActorSubscriber for that specifc type of data.  The ActorSubscriber reads
 the results and makes a String response that gets sent to the ResponseActor.  When the response arrives to ResponseActor, the actor will forward
@@ -35,7 +35,7 @@ For the ResponseActor I chose to use the Singleton pattern to make sure that the
 actor and no new Actor is created. I also chose to use the Singleton pattern for the ActorSystem and Materializer to make sure that the same
 Actor and Materializer are used throughout my program.
 
-### How to user the program? ###
+### How to use the program? ###
 
 The program acts as a server containing two endpoints:
 
