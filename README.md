@@ -83,8 +83,9 @@ multiple tests to test each component of the stream separately to ensure it's co
 * Analyzed data is sent straight back to the client without storage or cache
 * When displaying results for a specified location, if the user chooses to search just by country, when displaying the results the location name
     contains the city and state, however the results are for that specified country which includes ALL the cities. Same for when searching just
-    by state with country.  In summary, the location name that is displayed contains the last data entry analyzed instead of the user's provided
-    location, however the analyzed results are correct for the user's provided location.
+    by state with country. The analyzed results are correct for the user's provided location.  You can see this for example when looking at data 
+    for country Ukraine vs city Kiev, Ukraine where the former contains more readers than the latter which is true because the latter is more
+    specific.  I spent a lot of time trying to fix the bug, but ran out of time since I had to work on my final project for CS441.
 
 ### Documention ###
 
