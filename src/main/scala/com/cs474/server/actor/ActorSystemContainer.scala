@@ -4,18 +4,28 @@ import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 
 /**
-  * Created by titusjuocepis on 12/9/16.
+  * Singleton instance that holds ActorySystem and Materializer
   */
 object ActorSystemContainer {
 
   private val _actorSystem = ActorSystem.create("data-streaming")
-  private val _materialzer = ActorMaterializer.create(_actorSystem)
+  private val _materializer = ActorMaterializer.create(_actorSystem)
 
+  /**
+    * Gets the ActorSystem instance
+    *
+    * @return ActorSystem instance
+    */
   def actorSystem() = {
     _actorSystem
   }
 
+  /**
+    * Gets the Materializer instance
+    *
+    * @return Materializer instance
+    */
   def materializer() = {
-    _materialzer
+    _materializer
   }
 }
