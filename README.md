@@ -21,6 +21,15 @@ Sequence and is a nice data structure for book ratings since you can sort it and
 idea about GraphDSL applies to analyzeLocationData stream.
 
 I used case classes to represent instances that hold data of users, book ratings, books and location (location is nested inside user case class
+=======
+in analyzeUserRatingsData once I convert the strings coming out of the source to UserBookRating case class instances, I branch those out, because 
+I apply averageRatingFlow to one branch to calculate the averages of all the users and I apply filterByUserId to the second branch to filter out 
+specific users.  I then branch out the filtered users, because I apply a Flow to one branch to calculate averages just for those users and to the
+second branch I apply a Flow that groups the rated books into a Sequence.  (The reason for Sequence is because Flow.grouped(int) returns a 
+Sequence and is a nice data structure for book ratings since you can sort it and book ratings will go in sequence from best to worst). The same 
+idea about GraphDSL applies to analyzeLocationData stream.
+
+I used case classes to represent instances that hold data of users, book ratings, books and location (location is nested inside user case class 
 which my data pipeline takes care of).  Other case classes are used for Actor messaging.
 
 I used one Actor which responds to client's inputs that come from hitting the endpoint.  ResponseActor starts a specific stream based on those
