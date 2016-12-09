@@ -35,6 +35,9 @@ For the ResponseActor I chose to use the Singleton pattern to make sure that the
 actor and no new Actor is created. I also chose to use the Singleton pattern for the ActorSystem and Materializer to make sure that the same
 Actor and Materializer are used throughout my program.
 
+I created a total of 10 tests that test both of my data streaming pipelines.  They test each part of the pipeline separately, so the Sources,
+all the Flows and all the Sinks get tested separately.  They test on separate small data sets named BX-Users-TEST.csv and BX-Book-Ratings-TEST.csv
+
 ### How to use the program? ###
 
 The program acts as a server containing two endpoints:
