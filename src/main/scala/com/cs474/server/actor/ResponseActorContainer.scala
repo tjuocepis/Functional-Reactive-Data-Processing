@@ -10,7 +10,7 @@ object ResponseActorContainer {
   /**
     * ResponseActor instance
     */
-  private val _instance = ActorSystemContainer.getInstance().getSystem.actorOf(Props(new ResponseActor))
+  private val _instance = ActorSystemContainer.actorSystem().actorOf(Props(new ResponseActor))
 
   /**
     * Returns the ResponseActor instance

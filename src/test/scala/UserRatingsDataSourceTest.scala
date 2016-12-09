@@ -6,9 +6,9 @@ import com.cs474.server.actor.ActorSystemContainer
 /**
   * Created by titusjuocepis on 12/5/16.
   */
-class UserRatingsDataSourceTest extends TestKit(ActorSystemContainer.getInstance().getSystem) {
+class UserRatingsDataSourceTest extends TestKit(ActorSystemContainer.actorSystem()) {
 
-  implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
+  implicit val materializer = ActorSystemContainer.materializer()
 
   // Testing Source from BX-Users-TEST.csv
 

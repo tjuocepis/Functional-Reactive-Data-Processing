@@ -9,7 +9,7 @@ import akka.stream.scaladsl.{GraphDSL, RunnableGraph, Source, _}
 import com.cs474.server.cases.{User, UserBookRating}
 import com.cs474.server.stream.flows.{BookRatingsDataFlows, GenericDataFlows, UserDataFlows}
 import com.cs474.server.stream.sinks.{UserDataSinks, UserRatingsDataSinks}
-import com.cs474.server.actor.{ActorSystemContainer, LocationDataStreamSubscriber, RatedBooksSubscriber, UserRatingsDataStreamSubscriber}
+import com.cs474.server.actor._
 
 /**
   * Defines methods for streaming data and analyzing data from different sources
@@ -18,8 +18,8 @@ import com.cs474.server.actor.{ActorSystemContainer, LocationDataStreamSubscribe
   */
 class DataStream {
 
-  implicit val system = ActorSystemContainer.getInstance().getSystem
-  implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
+  implicit val system = ActorSystemContainer.actorSystem()
+  implicit val materializer = ActorSystemContainer.materializer()
 
   /**
     * Starts a stream to analyze data for specific location as well as all locations

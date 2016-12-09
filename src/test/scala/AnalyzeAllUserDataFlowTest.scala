@@ -8,9 +8,9 @@ import com.cs474.server.stream.flows.{GenericDataFlows, UserDataFlows}
 /**
   * Created by titusjuocepis on 12/4/16.
   */
-class AnalyzeAllUserDataFlowTest extends TestKit(ActorSystemContainer.getInstance().getSystem) {
+class AnalyzeAllUserDataFlowTest extends TestKit(ActorSystemContainer.actorSystem()) {
 
-  implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
+  implicit val materializer = ActorSystemContainer.materializer()
 
   // Testing analyzeDataFlow for collecting all users' data analysis
 

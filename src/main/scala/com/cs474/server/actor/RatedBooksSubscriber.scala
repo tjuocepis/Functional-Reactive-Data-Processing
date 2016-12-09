@@ -12,7 +12,7 @@ import com.cs474.server.cases.{UserBookRating, UserRatingsAnalysis}
   */
 class RatedBooksSubscriber(actorRef: ActorRef) extends ActorSubscriber with ActorLogging {
 
-  val system = ActorSystemContainer.getInstance().getSystem
+  val system = ActorSystemContainer.actorSystem()
 
   override def receive: Receive = {
 

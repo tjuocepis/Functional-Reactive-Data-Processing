@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
 import com.cs474.server.actor.{ActorSystemContainer, ResponseActorContainer}
-import com.cs474.server.cases.{AnalysisResponse, LocationAnalysis, StartLocationAnalysis, StartUserAnalysis}
+import com.cs474.server.cases.{AnalysisResponse, StartLocationAnalysis, StartUserAnalysis}
 import com.cs474.server.stream.DataStream
 
 import scala.concurrent.duration._
@@ -26,8 +26,8 @@ object Main {
     */
   def main(args: Array[String]): Unit = {
 
-    implicit val system = ActorSystemContainer.getInstance().getSystem
-    implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
+    implicit val system = ActorSystemContainer.actorSystem()
+    implicit val materializer = ActorSystemContainer.materializer()
     implicit val timeout: Timeout = 5.seconds
 
     val usersFile = new File("data/BX-Users.csv")

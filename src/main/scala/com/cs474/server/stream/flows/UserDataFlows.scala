@@ -11,7 +11,7 @@ import com.cs474.server.util.SP
   */
 object UserDataFlows {
 
-  implicit val system = ActorSystemContainer.getInstance().getSystem
+  implicit val system = ActorSystemContainer.actorSystem()
 
   /**
     * Takes in single user data strings and creates a User instance

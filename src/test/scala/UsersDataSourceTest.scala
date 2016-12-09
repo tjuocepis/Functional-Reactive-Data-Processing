@@ -9,9 +9,9 @@ import com.cs474.server.stream.flows.GenericDataFlows
 /**
   * Created by titusjuocepis on 12/4/16.
   */
-class UsersDataSourceTest extends TestKit(ActorSystemContainer.getInstance().getSystem) {
+class UsersDataSourceTest extends TestKit(ActorSystemContainer.actorSystem()) {
 
-  implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
+  implicit val materializer = ActorSystemContainer.materializer()
 
   // Testing Source from BX-Users-TEST.csv
 

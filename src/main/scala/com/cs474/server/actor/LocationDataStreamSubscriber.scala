@@ -14,7 +14,7 @@ import scala.util.Try
   */
 class LocationDataStreamSubscriber(actorRef: ActorRef) extends ActorSubscriber with ActorLogging {
 
-  val system = ActorSystemContainer.getInstance().getSystem
+  val system = ActorSystemContainer.actorSystem()
   val df = new DecimalFormat("#") // Formats Double values
 
   override def receive: Receive = {

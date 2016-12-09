@@ -7,9 +7,9 @@ import com.cs474.server.stream.flows.{BookRatingsDataFlows, GenericDataFlows}
 /**
   * Created by titusjuocepis on 12/5/16.
   */
-class AnalyzeAllUserRatingsDataFlowTest extends TestKit(ActorSystemContainer.getInstance().getSystem) {
+class AnalyzeAllUserRatingsDataFlowTest extends TestKit(ActorSystemContainer.actorSystem()) {
 
-  implicit val materializer = ActorSystemContainer.getInstance().getMaterializer
+  implicit val materializer = ActorSystemContainer.materializer()
 
   // Testing filterByAttributeFlow AND analyzeDataForAttributeFlow for collecting specific users' data analysis
 

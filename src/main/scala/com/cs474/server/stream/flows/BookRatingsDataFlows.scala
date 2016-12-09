@@ -11,7 +11,7 @@ import com.cs474.server.util.SP
   */
 object BookRatingsDataFlows {
 
-  implicit val system = ActorSystemContainer.getInstance().getSystem
+  implicit val system = ActorSystemContainer.actorSystem()
 
   /**
     * Collects UserBookRating instances into a Sequence

@@ -12,7 +12,7 @@ import scala.util.Try
   */
 object GenericDataFlows {
 
-  implicit val system = ActorSystemContainer.getInstance().getSystem
+  implicit val system = ActorSystemContainer.actorSystem()
 
   /**
     * Generic Flow that analyzes data for an entire data set by applying a fold operation that counts number of valid
