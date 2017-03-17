@@ -9,35 +9,6 @@ The project involves streaming and analyzing large data files:
 * BX-Users-TEST.csv : Contains 5 data entries used for testing
 * BX-Book-Ratings-TEST.csv : Contains 5 data entries used for testing
 
-### Design Rationale ###
-
-I chose to use GraphDSL to create my streaming pipeline, because the syntax is really nice and concise (especially ~> operators for connecting
-the pipeline together) and you can do branching of data that comes out of a Flow in order to apply different Flows on the same data.  For example
-in analyzeUserRatingsData once I convert the strings coming out of the source to UserBookRating case class instances, I branch those out, because 
-I apply averageRatingFlow to one branch to calculate the averages of all the users and I apply filterByUserId to the second branch to filter out 
-specific users.  I then branch out the filtered users, because I apply a Flow to one branch to calculate averages just for those users and to the
-second branch I apply a Flow that groups the rated books into a Sequence.  (The reason for Sequence is because Flow.grouped(int) returns a 
-Sequence and is a nice data structure for book ratings since you can sort it and book ratings will go in sequence from best to worst). The same 
-idea about GraphDSL applies to analyzeLocationData stream.
-
-I used case classes to represent instances that hold data of users, book ratings, books and location (location is nested inside user case class 
-which my data pipeline takes care of).  Other case classes are used for Actor messaging.
-
-I used one Actor which responds to client's inputs that come from hitting the endpoint.  ResponseActor starts a specific stream based on those
-inputs.  If client wants to look at analyzed book ratings, ResponseActor gets a message for that and starts that stream pipeline.  If client
-wants to look at analyzed user data, ResponseActor gets a message for that and starts that stream pipeline.  When the pipeline is running and
-data goes through all the flows, the analyzed data Sinks to a specifc ActorSubscriber for that specifc type of data.  The ActorSubscriber reads
-the results and makes a String response that gets sent to the ResponseActor.  When the response arrives to ResponseActor, the actor will forward
-that back to the temporary Actor that gets created in Main from calling the ask() function in order to complete the route and send the answer
-back to the client.
-
-For the ResponseActor I chose to use the Singleton pattern to make sure that the two different ActorSubscribers send their responses to the same
-actor and no new Actor is created. I also chose to use the Singleton pattern for the ActorSystem and Materializer to make sure that the same
-Actor and Materializer are used throughout my program.
-
-I created a total of 10 tests that test both of my data streaming pipelines.  They test each part of the pipeline separately, so the Sources,
-all the Flows and all the Sinks get tested separately.  They test on separate small data sets named BX-Users-TEST.csv and BX-Book-Ratings-TEST.csv
-
 ### How to use the program? ###
 
 The program acts as a server containing two endpoints:
